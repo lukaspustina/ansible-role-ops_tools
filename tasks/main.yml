@@ -1,0 +1,25 @@
+---
+# tasks file for ops_tools
+
+- name: Add Sysdig Repository Key
+  apt_key: url=https://s3.amazonaws.com/download.draios.com/DRAIOS-GPG-KEY.public state=present
+  when: '"sysdig" in _ops_tools.tools'
+
+- name: Add Sysdig Repositories
+  get_url: url=http://download.draios.com/stable/deb/draios.list dest=/etc/apt/sources.list.d/draios.list mode=0440
+  register: add_sysdig_repo
+  when: '"sysdig" in _ops_tools.tools'
+
+- name: Update APT Cache
+  apt: update_cache=yes
+  when: '"sysdig" in _ops_tools.tools and add_sysdig_repo|changed'
+
+- name: Install Ops Tools
+  apt: name={{ item }} state=present
+  with_items: _ops_tools.tools
+
+- name: Copy Ops Tools
+  copy: src={{ item }} dest=/{{ item }} owner=root group=root mode=0755
+  with_items:
+    - usr/local/bin/usereport.py
+
