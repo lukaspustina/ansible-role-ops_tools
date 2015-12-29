@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  author: Lukas Pustina
+  description: Installs tools useful for ops analysis and problem diagnosis.
+  company: Acme
+  license: GPL
+  min_ansible_version: 1.9
+  platforms:
+  - name: Ubuntu
+  galaxy_tags:
+    - ops
+    - installer
+    - web
+
