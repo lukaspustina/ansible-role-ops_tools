@@ -11,4 +11,5 @@ galaxy_info:
     - ops
     - installer
     - web
+dependencies: []
 
