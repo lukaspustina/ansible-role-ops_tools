@@ -15,8 +15,7 @@
   when: '"sysdig" in _ops_tools.tools and add_sysdig_repo|changed'
 
 - name: Install Ops Tools
-  apt: name={{ item }} state=present
-  with_items: _ops_tools.tools
+  apt: name={{ _ops_tools.tools }} state=present
 
 - name: Copy Ops Tools
   copy: src={{ item }} dest=/{{ item }} owner=root group=root mode=0755
